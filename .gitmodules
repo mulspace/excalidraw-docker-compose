@@ -1,0 +1,9 @@
+[submodule "web"]
+	path = web
+	url = git@github.com:mulspace/excalidraw.git
+[submodule "backend"]
+	path = backend
+	url = git@github.com:mulspace/excalidraw-room.git
+[submodule "store"]
+	path = store
+	url = git@github.com:mulspace/excalidraw-store.git
