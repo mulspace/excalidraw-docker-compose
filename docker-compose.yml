@@ -1,0 +1,40 @@
+version: "3.3"
+
+services:
+  wb-ui:
+    image: mulspace/wb-ui
+    container_name: wb-ui
+    healthcheck:
+      disable: true
+    ports:
+      - "8080:80"
+    environment:
+      - REACT_APP_BACKEND_V2_GET_URL=https://json-dev.excalidraw.com/api/v2/
+      - REACT_APP_BACKEND_V2_POST_URL=https://json-dev.excalidraw.com/api/v2/post/
+      - REACT_APP_LIBRARY_URL=https://libraries.excalidraw.com
+      - REACT_APP_LIBRARY_BACKEND=https://us-central1-excalidraw-room-persistence.cloudfunctions.net/libraries
+      - REACT_APP_WS_SERVER_URL=http://wb-backend:80
+      - REACT_APP_PORTAL_URL=
+      - REACT_APP_FIREBASE_CONFIG=
+      - REACT_APP_DEV_ENABLE_SW=
+      - REACT_APP_DEV_DISABLE_LIVE_RELOAD=
+
+  wb-store:
+    image: kiliandeca/excalidraw-storage-backend
+    container_name: store
+    ports:
+      - "3081:8080"
+    environment:
+      STORAGE_URI: redis://redis:6379
+
+  wb-backend:
+    image: mulspace/wb-backend:latest
+    container_name: wb-backend
+    ports:
+      - "3002:80"
+
+  redis:
+    image: redis
+    container_name: redis
+    ports:
+      - "6379:6379"
